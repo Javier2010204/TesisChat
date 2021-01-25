@@ -20,6 +20,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       # t.datetime :last_sign_in_at
       # t.string   :current_sign_in_ip
       # t.string   :last_sign_in_ip
+      t.string :name
+      t.string :rol, default: 'student'
+      t.integer :points
+      t.references :career, index: true, foreign_key: { to_table: 'users' }
 
       ## Confirmable
       # t.string   :confirmation_token

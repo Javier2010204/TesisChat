@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row card">
+    <div class="col-xs-12 col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Solicitud enviada por <%= @order.user.name%></h5>
+        <p class="card-text">
+          Descripcion:
+          <%= @order.body %>
+        </p>
+        <p class="card-subtitle">
+          Estado: <%= @order.status%>
+        </p>
+
+        <p class="card-subtitle">
+          Fecha de entrega: <%= @order.date.strftime("%d/%m/%y")%>
+        </p>
+      </div>
+
+      <div>
+        
+        <% if @order.pending? && current_user.id == @order.receiver_id%>
+          <%= link_to 'Aceptar', chat_order_path(@order.chat, @order.id, status:"1"), method: :patch, class: "btn btn-success m-2" %>
+          <%= link_to 'Rechazar', chat_order_path(@order.chat, @order.id, status:"0"), method: :patch, class: "btn btn-danger m-2"  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% if @order.active? && current_user.rol == "professional" %>
+    <div class="row card mt-5 p-4">
+      <div class="col-xs-12 col-md-8">
+        <h3>Ya tienes lista la entrega</h3>
+        <p>Puedes adjuntar el trabajo en el siguiente link</p>
+
+        <%= link_to "Agregar trabajo", root_path, class:'btn btn-success'%>
+      </div>
+    </div>
+  <% end %>
+</div>
+

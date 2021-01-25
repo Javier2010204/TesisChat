@@ -1,3 +1,89 @@
 <div class="container">
-    <h1>hola mundo</h1>
+    
+    <% if user_signed_in? %>
+        <div class="row d-flex justify-content-center">
+            <div class="col-xs-12 col-sm-10 col-md-12">
+                <div class="alert alert-info">
+                    <h2>Bienvenido <%= current_user.name %> a la plataforma</h2>
+                    <p>Mensaje de bienvenida a la plataforma</p>
+                </div>
+            </div>
+        </div>
+        
+        <% if current_user.rol == 'student' %>
+            
+            <% if current_user.progresses.count == 0 %>
+                <div class="row d-flex justify-content-center card p-4">
+                    <div class="col-xs-12">
+                        <h3>Sube tus avances</h3>
+                        <p>Sube tus avances para que podamos asiganarte un profesional</p>
+                        <%= link_to 'Subir avances', new_progress_path, class: 'btn btn-info' %>
+                    </div>
+                </div>
+            <% elsif current_user.job_applications.pending.count != 0 %>
+                <div class="row d-flex justify-content-center p-4 card mt-4">
+                    <div class="col-xs-12">
+                        <h3>Hemos recibido tus avances</h3>
+                        <p>Espera a que se te asigne un profesional para darle seguimiento a tu caso</p>
+                    </div>
+                </div>
+            <% elsif current_user.job_applications.active.count != 0  %>
+                <div class="row d-flex justify-content-center p-4 card mt-4">
+                    <div class="col-xs-12">
+                        <h3>Felicidades, se te ha asignado un profesional</h3>
+                        <p>Haz click en el link y empieza a chatear con el profesional que llevara tu caso</p>
+                        <%= link_to 'ir a sala de chat', chats_path %>
+                    </div>
+                </div>
+            <% end %>
+            
+        <% elsif current_user.rol == 'professional' %>
+            <div class="row d-flex justify-content-center p-4 w-100 card">
+                <div class="col-xs-12">
+                    <h5>Solicitudes de trabajo pendientes</h5>
+                    <% @jobs_pending.each do |job|%>
+                        <div class="border-top mt-3 d-flex justify-content-around align-items-center">    
+                            <div>
+                                <%= job.user.name%>
+                            </div>
+                            <div>
+                                <%= link_to 'Ver detalles', job.user.progresses.last%>
+                            </div>
+                            <div class="mt-1">
+                                <%= link_to 'Acepta', job_application_path(job, status: "1"), method: :patch, class: 'btn btn-success' %>
+                                <%= link_to 'Rechazar', job_application_path(job, status: "0"), method: :patch, class:'btn btn-danger' %>
+                            </div>
+                        </div>
+                    <%end%>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center p-4 w-100 card mt-5">
+                <div class="col-xs-12">
+                    <h5>Solicitudes de trabajo activas</h5>
+                    <% @jobs_active.each do |job|%>
+                        <div class="border-top mt-3 d-flex justify-content-around">    
+                            <%= job.user.name%>
+                            <%= link_to 'Ir al chat', chats_path%>
+                            estado: 
+                            <%= job.status%>
+                        </div>
+                    <%end%>
+                </div>
+            </div>
+            
+        <% elsif current_user.rol == "admin" %>
+            <div class="row d-flex justify-content-around align-items-center card p-4">
+                <div class="col-xs-12 col-md-6">
+                    <%= link_to 'Usuarios', users_path %>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <p>Usuarios</p>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        
+    <% end %>
+    
 </div>

@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer          not null
+#  receiver_id :integer          not null
+#  chat_id     :integer          not null
+#  date        :date
+#  body        :text
+#  status      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  user: one
+  receiver: one
+  chat: one
+  date: 2021-01-22
+  texte: 
+  status: MyString
+
+two:
+  user: two
+  receiver: two
+  chat: two
+  date: 2021-01-22
+  texte: 
+  status: MyString

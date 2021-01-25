@@ -26,6 +26,7 @@ gem 'devise'
 gem 'annotate'
 gem 'aasm'
 gem 'cancancan'
+gem 'poppler'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

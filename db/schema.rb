@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_050353) do
+ActiveRecord::Schema.define(version: 2021_01_22_224620) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "careers", force: :cascade do |t|
     t.string "name"
@@ -18,4 +39,97 @@ ActiveRecord::Schema.define(version: 2021_01_22_050353) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "professional_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["professional_id"], name: "index_chats_on_professional_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "homeworks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "receiver_id", null: false
+    t.integer "order_id", null: false
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_homeworks_on_order_id"
+    t.index ["receiver_id"], name: "index_homeworks_on_receiver_id"
+    t.index ["user_id"], name: "index_homeworks_on_user_id"
+  end
+
+  create_table "job_applications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "professional_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["professional_id"], name: "index_job_applications_on_professional_id"
+    t.index ["user_id"], name: "index_job_applications_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "chat_id", null: false
+    t.integer "user_id", null: false
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "receiver_id", null: false
+    t.integer "chat_id", null: false
+    t.date "date"
+    t.text "body"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chat_id"], name: "index_orders_on_chat_id"
+    t.index ["receiver_id"], name: "index_orders_on_receiver_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "progresses", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_progresses_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "rol", default: "student"
+    t.integer "points"
+    t.integer "career_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["career_id"], name: "index_users_on_career_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chats", "users"
+  add_foreign_key "homeworks", "orders"
+  add_foreign_key "homeworks", "users"
+  add_foreign_key "job_applications", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users"
+  add_foreign_key "orders", "chats"
+  add_foreign_key "orders", "users"
+  add_foreign_key "progresses", "users"
+  add_foreign_key "users", "users", column: "career_id"
 end

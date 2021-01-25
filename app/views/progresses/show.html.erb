@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row card d-flex justify-content-center">
+    <div class="col-xs-12">
+      <div class="card-body">
+        <h3 class="card-title">Avances de tesis <%= @progress.user.name%></h3>
+        <div class="">
+          <b>Descripcion:</b>
+          <p>
+              <%= @progress.body%>
+          </p>
+        </div>
+        <div>
+          <h5>Guias y documentos</h5>
+          <% @progress.documents.each do |document|%>
+              <li>
+                <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+              </li>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
