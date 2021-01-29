@@ -1,4 +1,4 @@
-<div class="alert alert-warning">
+<div class="alert alert-warning" id="alerta">
         <p style="font-size: 12px;">“Está terminantemente prohibido el intercambio de datos personales como nombre del cliente, número telefónico, correo electrónico y cualquier otro dato personal que ponga en riesgo la garantía de confidencialidad ofrecida por Utesis.com. En caso de violentarse esta disposición, Utesis.com tomará las medidas legales en contra del profesional y dará de baja el servicio para el cliente además de no responsabilizarse por problemas posteriores entre ambas partes”</p>
       </div>
 <div class="container-fluid mt-4">
@@ -19,26 +19,36 @@
     </div>
     <div class="col-xs-12 col-md-10">
       <% if @chat.user_id == current_user.id %>
-        <div class="">
+        <div class="d-flex justify-content-center align-items-center p-2">
+          <% if @chat.professional.photo.attached? %>
+            <%= image_tag @chat.professional.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
+          <% end %>
           <h5 class="text-center"><%= @chat.professional.name%></h5>
         </div>
       <% else %>
-        <h5><%= @chat.user.name%></h5>
+        <div class="d-flex justify-content-center align-items-center p-2">
+          <% if @chat.user.photo.attached? %>
+            <%= image_tag @chat.user.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
+          <% end %>
+          <h5 class="text-center"><%= @chat.user.name%></h5>
+        </div>
       <% end %>
       <%= link_to 'Crear orden', new_chat_order_path(@chat.id), class:'btn btn-info inline' %>
-      <% @chat.messages.each do |message|%>
-        <div class="card mt-4 <%= 'bg-dark text-white text-right' if message.user == current_user %>">
-          <div class="card-body">
-            <p class="card-subtitle text-muted" style="font-size:14px;">
-              <%= message.user.name %>
-              <%= message.created_at.strftime("%d-%m-%y")%>
-            </p>
-            <p class="card-text" style="font-size:18px;">
-              <%= message.body%>
-            </p>
+      <div>
+        <% @chat.messages.each do |message|%>
+          <div class="card mt-4 <%= 'bg-dark text-white text-right' if message.user == current_user %>">
+            <div class="card-body">
+              <p class="card-subtitle text-muted" style="font-size:14px;">
+                <%= message.user.name %>
+                <%= message.created_at.strftime("%d-%m-%y")%>
+              </p>
+              <p class="card-text" style="font-size:18px;">
+                <%= message.body%>
+              </p>
+            </div>
           </div>
-        </div>
-      <%end%>
+        <%end%>
+      </div>
       </div>
       </div>
       <div class="row d-flex justify-content-center align-items-center form-chat">

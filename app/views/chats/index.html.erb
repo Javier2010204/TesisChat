@@ -10,8 +10,14 @@
               <div class="col-xs-10">
                 <div>
                   <% if chat.user_id == current_user.id %>
-                      <%= link_to chat.professional.name, chat %>
+                    <% if chat.professional.photo.attached? %>
+                      <%= image_tag chat.professional.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
+                    <% end %>
+                    <%= link_to chat.professional.name, chat %>
                   <% elsif chat.professional_id == current_user.id %>
+                      <% if chat.professional.photo.attached? %>
+                        <%= image_tag chat.professional.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
+                      <% end %>
                       <%= link_to chat.user.name, chat %>
                   <% end %>
                 </div>

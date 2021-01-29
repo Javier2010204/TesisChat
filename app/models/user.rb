@@ -27,4 +27,6 @@ class User < ApplicationRecord
   has_many :chats
   has_many :messages
   has_many :orders
+
+  has_one_attached :photo
 end

@@ -6,6 +6,23 @@ class UsuariosController < ApplicationController
         @usuarios = User.all
     end
 
+    def edit
+        
+    end
+
+    def update
+        respond_to do |format|
+            if @usuario.update(usuario_params)
+                @usuario.photo.attach(params[:user][:photo])
+                format.html { render :show, notice: 'Foto agregada con exitos' }
+            else
+                format.html{render :new, alert: 'error al guardar la foto'}
+            end
+        end
+    end
+    
+    
+
     def show
         
     end
@@ -40,7 +57,7 @@ class UsuariosController < ApplicationController
         end
 
         def usuario_params
-            params.require(:user).permit(:name, :email, :password, :career_id, :rol)
+            params.require(:user).permit(:name, :email, :password, :career_id, :rol, :photo)
         end
         
         

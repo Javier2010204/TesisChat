@@ -20,6 +20,13 @@
                         <%= link_to 'Subir avances', new_progress_path, class: 'btn btn-info' %>
                     </div>
                 </div>
+            <% elsif current_user.job_applications.count == 0 %>
+                <div class="row d-flex justify-content-center p-4 card mt-4">
+                    <div class="col-xs-12">
+                        <h3>Hemos recibido tus avances</h3>
+                        <p>Espera a que se te asigne un profesional para darle seguimiento a tu caso</p>
+                    </div>
+                </div>
             <% elsif current_user.job_applications.pending.count != 0 %>
                 <div class="row d-flex justify-content-center p-4 card mt-4">
                     <div class="col-xs-12">
@@ -62,7 +69,7 @@
                 <div class="col-xs-12">
                     <h5>Solicitudes de trabajo activas</h5>
                     <% @jobs_active.each do |job|%>
-                        <div class="border-top mt-3 d-flex justify-content-around">    
+                        <div class="border-top mt-3 d-flex justify-content-around align-items-baseline">    
                             <%= job.user.name%>
                             <%= link_to 'Ir al chat', chats_path%>
                             estado: 

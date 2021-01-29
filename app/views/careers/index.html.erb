@@ -1,27 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-xs-12 col-md-10">
+      <h1>Carreras</h1>
+      <p>Agreaga y maneja todas las carreras de la plataforma</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @careers.each do |career| %>
+            <tr>
+              <th scope="row"><%= career.id%></th>
+              <td><%= career.name%></td>
+              <td><%= link_to 'Editar', edit_career_path(career), class:'btn btn-outline-info'%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+        <%= link_to 'Agregar carrera', new_career_path, class:'btn btn-info' %>
+    </div>
+  </div>
+</div>
 
-<h1>Careers</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @careers.each do |career| %>
-      <tr>
-        <td><%= career.name %></td>
-        <td><%= link_to 'Show', career %></td>
-        <td><%= link_to 'Edit', edit_career_path(career) %></td>
-        <td><%= link_to 'Destroy', career, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Career', new_career_path %>
