@@ -14,6 +14,8 @@
 #  career_id              :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  mount                  :decimal(, )      default(0.0)
+#  service                :string
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -27,6 +29,7 @@ class User < ApplicationRecord
   has_many :chats
   has_many :messages
   has_many :orders
+  has_many :homeworks
 
   has_one_attached :photo
 end

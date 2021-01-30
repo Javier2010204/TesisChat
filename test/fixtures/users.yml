@@ -14,6 +14,8 @@
 #  career_id              :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  mount                  :decimal(, )      default(0.0)
+#  service                :string
 #
 
 # This model initially had no columns defined. If you add columns to the

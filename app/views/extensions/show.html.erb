@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @extension.user_id %>
+</p>
+
+<p>
+  <strong>Chat:</strong>
+  <%= @extension.chat_id %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= @extension.receiver_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @extension.status %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @extension.date %>
+</p>
+
+<%= link_to 'Edit', edit_extension_path(@extension) %> |
+<%= link_to 'Back', extensions_path %>

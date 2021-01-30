@@ -1,21 +1,18 @@
 # == Schema Information
 #
-# Table name: orders
+# Table name: homeworks
 #
 #  id          :integer          not null, primary key
+#  chat_id     :integer          not null
 #  user_id     :integer          not null
 #  receiver_id :integer          not null
-#  chat_id     :integer          not null
-#  date        :date
-#  body        :text
 #  status      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  number_page :integer
 #
 require 'test_helper'
 
-class OrderTest < ActiveSupport::TestCase
+class HomeworkTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

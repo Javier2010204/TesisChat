@@ -71,4 +71,5 @@ class ProgressesController < ApplicationController
     def progress_params
       params.require(:progress).permit(:body, :my_documents)
     end
+    
 end

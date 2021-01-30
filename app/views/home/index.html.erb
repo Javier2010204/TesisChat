@@ -44,7 +44,7 @@
                 </div>
             <% end %>
             
-        <% elsif current_user.rol == 'professional' %>
+        <% elsif current_user.rol == 'professional' || current_user.rol == 'editor' %>
             <div class="row d-flex justify-content-center p-4 w-100 card">
                 <div class="col-xs-12">
                     <h5>Solicitudes de trabajo pendientes</h5>
@@ -115,7 +115,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Chats</h5>
                             <p class="card-text">Manten en control todos las salas de chats</p>
-                            <%= link_to 'Ver más', users_path, class:'btn btn-info' %>
+                            <%= link_to 'Ver más', chats_path, class:'btn btn-info' %>
                         </div>
                     </div>
                 </div>

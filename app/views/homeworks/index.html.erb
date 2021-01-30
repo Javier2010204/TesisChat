@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="col-xs-12 col-md-8">
+      <h2 class="text-center">Solicitudes de entrega de Homeworks</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Chat</th>
+            <th scope="col">Profesional</th></th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @homeworks.each do |homework|%>
+            <tr>
+              <th scope="row">1</th>
+              <td><%= homework.chat_id%></td>
+              <td><%= homework.user.name%></td>
+              <td><%= homework.receiver.name%></td>
+              <td><%= homework.status %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="mt-4">
+        <%= link_to 'Crear entrega de homework', new_homework_path, class:'btn btn-info' %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

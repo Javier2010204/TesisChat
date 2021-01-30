@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_224620) do
+ActiveRecord::Schema.define(version: 2021_01_29_092659) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,14 +50,13 @@ ActiveRecord::Schema.define(version: 2021_01_22_224620) do
   end
 
   create_table "homeworks", force: :cascade do |t|
+    t.integer "chat_id", null: false
     t.integer "user_id", null: false
     t.integer "receiver_id", null: false
-    t.integer "order_id", null: false
-    t.text "description"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_homeworks_on_order_id"
+    t.index ["chat_id"], name: "index_homeworks_on_chat_id"
     t.index ["receiver_id"], name: "index_homeworks_on_receiver_id"
     t.index ["user_id"], name: "index_homeworks_on_user_id"
   end
@@ -91,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_01_22_224620) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "number_page"
     t.index ["chat_id"], name: "index_orders_on_chat_id"
     t.index ["receiver_id"], name: "index_orders_on_receiver_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 2021_01_22_224620) do
     t.integer "career_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "mount", default: "0.0"
+    t.string "type_service"
     t.index ["career_id"], name: "index_users_on_career_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -123,7 +125,7 @@ ActiveRecord::Schema.define(version: 2021_01_22_224620) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "users"
-  add_foreign_key "homeworks", "orders"
+  add_foreign_key "homeworks", "chats"
   add_foreign_key "homeworks", "users"
   add_foreign_key "job_applications", "users"
   add_foreign_key "messages", "chats"

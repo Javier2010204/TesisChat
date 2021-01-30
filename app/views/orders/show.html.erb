@@ -10,14 +10,20 @@
         <p class="card-subtitle">
           Estado: <%= @order.status%>
         </p>
+        <p class="card-subtitle">
+          Número de páginas: <%= @order.number_page%>
+        </p>
 
         <p class="card-subtitle">
-          Fecha de entrega: <%= @order.date.strftime("%d/%m/%y")%>
+          Fecha de entrega: <%= @order.date%>
+        </p>
+
+        <p class="card-subtitle">
+          Faltan: <%= (@order.date - Date.today).to_i %> días para la entrega
         </p>
       </div>
 
       <div>
-        
         <% if @order.pending? && current_user.id == @order.receiver_id%>
           <%= link_to 'Aceptar', chat_order_path(@order.chat, @order.id, status:"1"), method: :patch, class: "btn btn-success m-2" %>
           <%= link_to 'Rechazar', chat_order_path(@order.chat, @order.id, status:"0"), method: :patch, class: "btn btn-danger m-2"  %>
@@ -25,13 +31,56 @@
       </div>
     </div>
   </div>
-  <% if @order.active? && current_user.rol == "professional" %>
-    <div class="row card mt-5 p-4">
+  <% if current_user.rol == "student" %>
+    <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
+      <div class="col-xs-12 col-md-4">
+        <div>
+          <% @order.chat.homeworks.each do |homework| %>
+            <h5>Solicitud de aprobacion de trabajo enviada por: <%= homework.user.name%></h5>
+            <li class="">
+                <% homework.documents.each do |document|%>
+                    <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+                <% end %>
+                <%= homework.status %>
+              <div class="row d-flex align-items-center justify-content-center">
+                
+                <% if homework.pending? && current_user.id == homework.receiver_id%>
+                  <div class="col-xs-6 col-md-6">
+                    <%= link_to 'Aceptar provisionalmente', chat_homework_path(@order.chat, homework.id, status:"1"), method: :patch, class: "btn btn-outline-success m-2" %>
+                  </div>
+                  <div class="col-xs-6 col-md-6">
+                    <%= link_to 'Aceptar definitivamente', chat_homework_path(@order.chat, homework.id, status:"0"), method: :patch, class: "btn btn-outline-info m-2"  %>
+                  </div>
+                <% end %>
+              </div>
+          </li>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if current_user.rol == "professional" %>
+    <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
       <div class="col-xs-12 col-md-8">
-        <h3>Ya tienes lista la entrega</h3>
-        <p>Puedes adjuntar el trabajo en el siguiente link</p>
+          <% if @order.active? && @order.chat.homeworks.count != 0 %>
 
-        <%= link_to "Agregar trabajo", root_path, class:'btn btn-success'%>
+            <h2 class="text-center">Solicitudes de Homeworks enviadas</h2>
+            <% @order.chat.homeworks.each do |homework| %>
+              <li class="card p-3 mt-2 d-flex justify-content-around">
+                <% homework.documents.each do |document|%>
+                    <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+                <% end %>
+                <%= homework.status %>
+              </li>
+            <% end %>
+          <% elsif @order.active? %>
+            <h3>Ya tienes lista la entrega</h3>
+            <p>Puedes adjuntar el trabajo en el siguiente link</p>
+            <%= link_to "Agregar trabajo", new_chat_homework_path(@order.chat), class:'btn btn-success'%>
+          <% else %>
+        <% end %>
+
       </div>
     </div>
   <% end %>

@@ -1,9 +1,19 @@
+
+<% if @chat.status == "denied" %>
+  
+  <% if @chat.user == current_user %>
+    <%= link_to 'Calificar al profesional', edit_user_path(@chat.receiver) %>
+  <% else %>
+    <%= link_to 'Calificar al estudiante', edit_user_path(@chat.user) %>
+  <% end %>
+<% else %>
 <div class="alert alert-warning" id="alerta">
         <p style="font-size: 12px;">“Está terminantemente prohibido el intercambio de datos personales como nombre del cliente, número telefónico, correo electrónico y cualquier otro dato personal que ponga en riesgo la garantía de confidencialidad ofrecida por Utesis.com. En caso de violentarse esta disposición, Utesis.com tomará las medidas legales en contra del profesional y dará de baja el servicio para el cliente además de no responsabilizarse por problemas posteriores entre ambas partes”</p>
       </div>
 <div class="container-fluid mt-4">
   <div class="row d-flex justify-content-center">
     <div class="col-xs-12 col-md-2">
+      <%= @chat.status %>
       <h3>Ordenes</h3>
       <% @chat.orders.each do |order|%>
         <div class="card">
@@ -59,3 +69,5 @@
     </div>
   </div>
 </div>
+
+<% end %>

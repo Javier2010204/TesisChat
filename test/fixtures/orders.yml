@@ -11,6 +11,7 @@
 #  status      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  number_page :integer
 #
 
 one:

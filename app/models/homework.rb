@@ -1,24 +1,24 @@
 # == Schema Information
 #
-# Table name: orders
+# Table name: homeworks
 #
 #  id          :integer          not null, primary key
+#  chat_id     :integer          not null
 #  user_id     :integer          not null
 #  receiver_id :integer          not null
-#  chat_id     :integer          not null
-#  date        :date
-#  body        :text
 #  status      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  number_page :integer
 #
-class Order < ApplicationRecord
+class Homework < ApplicationRecord
   include AASM
-
+  belongs_to :chat
   belongs_to :user
   belongs_to :receiver, class_name: "User"
-  belongs_to :chat
+
+  has_many_attached :documents
+  attr_accessor :my_documents
+
 
   aasm column: "status" do
   	state :pending, initial: true
@@ -30,7 +30,7 @@ class Order < ApplicationRecord
   	end	
 
   	event :rejected do
-  		transitions from: [:active, :pending], to: [:denied]
+  		transitions from: [:pending], to: [:denied]
   	end
   end
 end
