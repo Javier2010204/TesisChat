@@ -1,4 +1,5 @@
 class HomeworksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_homework, only: [:show, :edit, :update, :destroy]
   before_action :set_chat
   before_action :set_students, only:[:new, :create]

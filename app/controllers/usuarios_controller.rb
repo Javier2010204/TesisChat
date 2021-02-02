@@ -1,4 +1,5 @@
 class UsuariosController < ApplicationController
+    before_action :authenticate_user!
     before_action :find_usuarios, except:[:new, :create, :index]
     before_action :set_careers
     

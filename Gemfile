@@ -27,6 +27,7 @@ gem 'annotate'
 gem 'aasm'
 gem 'cancancan'
 gem 'poppler'
+gem 'letter_opener'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
