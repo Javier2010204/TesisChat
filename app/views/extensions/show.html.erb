@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row card">
+    <div class="col-xs-12 col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Solicitud enviada por <%= @extension.user.name%></h5>
+        <p class="card-text">
+        </p>
+        <p class="card-subtitle">
+          Estado: <%= @extension.status%>
+        </p>
+        <p class="card-subtitle">
+        </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @extension.user_id %>
-</p>
+        <p class="card-subtitle">
+          Fecha de entrega: <%= @extension.date%>
+        </p>
 
-<p>
-  <strong>Chat:</strong>
-  <%= @extension.chat_id %>
-</p>
+        <p class="card-subtitle">
+          Faltan: <%= (@extension.date - Date.today).to_i %> días para la entrega
+        </p>
+      </div>
 
-<p>
-  <strong>Receiver:</strong>
-  <%= @extension.receiver_id %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @extension.status %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @extension.date %>
-</p>
-
-<%= link_to 'Edit', edit_extension_path(@extension) %> |
-<%= link_to 'Back', extensions_path %>
+      <div>
+        <% if @extension.pending? && current_user.id == @extension.receiver_id%>
+          <%= link_to 'Aceptar', chat_extension_path(@extension.chat, @extension.id, status:"1"), method: :patch, class: "btn btn-success m-2" %>
+          <%= link_to 'Rechazar', chat_extension_path(@extension.chat, @extension.id, status:"0"), method: :patch, class: "btn btn-danger m-2"  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

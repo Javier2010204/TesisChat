@@ -21,6 +21,10 @@
         <p class="card-subtitle">
           Faltan: <%= (@order.date - Date.today).to_i %> días para la entrega
         </p>
+
+        <div class="mt-2">
+          <%= link_to 'Solicitar prorroga', new_chat_extension_path() %>
+        </div>
       </div>
 
       <div>

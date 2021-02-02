@@ -3,7 +3,7 @@ class CreateExtensions < ActiveRecord::Migration[6.0]
     create_table :extensions do |t|
       t.references :user, null: false, foreign_key: true
       t.references :chat, null: false, foreign_key: true
-      t.references :receiver, null: false, foreign_key: true
+      t.references :receiver, null: false, foreign_key: false
       t.string :status
       t.date :date
 

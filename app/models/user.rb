@@ -30,6 +30,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :orders
   has_many :homeworks
+  has_many :extensions
 
   has_one_attached :photo
 end

@@ -10,6 +10,10 @@
 #  updated_at :datetime         not null
 #
 class Message < ApplicationRecord
+  include AASM
   belongs_to :chat
   belongs_to :user
+
+  validates_presence_of :body
+
 end

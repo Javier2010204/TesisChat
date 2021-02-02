@@ -30,10 +30,10 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message.chat, notice: 'Message was successfully created.' }
+        format.html { redirect_to @message.chat, notice: 'Mensaje enviado con exito' }
         format.json { render :show, status: :created, location: @message }
       else
-        format.html { render :new }
+        format.html { redirect_to @message.chat }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end

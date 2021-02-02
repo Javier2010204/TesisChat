@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :extensions
+  
   resources :chats do
     resources :messages  
     resources :orders
     resources :homeworks
+    resources :extensions
   end
   resources :job_applications
   resources :progresses

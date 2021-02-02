@@ -16,13 +16,19 @@ class Chat < ApplicationRecord
   has_many :messages
   has_many :orders
   has_many :homeworks
+  has_many :extensions
 
   aasm column: "status" do
   	state :active, initial: true
     state :denied
+    state :report
     
   	event :rejected do
   		transitions from: [:active], to: [:denied]
-  	end
+    end
+    
+    event :reported do
+      transitions from: [:active], to: [:report]
+    end
   end
 end
