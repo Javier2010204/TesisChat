@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
   get 'email_links/new'
-  get 'email_links/create'
+  get 'email_links/validate', as: :email_link
+  post 'email_links/create', as: :magic_link
+
   resources :chats do
     resources :messages  
     resources :orders

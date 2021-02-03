@@ -1,2 +1,15 @@
-<h1>EmailLinks#new</h1>
-<p>Find me in app/views/email_links/new.html.erb</p>
+<div class="container">
+    <div class="row card p-4 mt-3 d-flex justify-content-center align-items-center">
+        <div class="col-xs-12 col-md-8">
+            <h1>Ingresa con un link que se enviara a tu correo electrónico</h1>
+            <p>Olvidate de las contraseñas</p>
+
+
+            <%= form_with url: magic_link_path, method: :post do |form|%>
+                <input  type="email" name="email" placeholder="tu correo electrónico aquí" class="form-control">
+                <input type="submit" value="Generar Link" class="btn btn-info mt-3">
+            <% end %>
+        </div>
+    </div>
+
+</div>
