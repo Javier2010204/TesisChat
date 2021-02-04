@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   
+  resources :homework_reviews
+  get 'usuarios/payment', as: :payments
   get 'email_links/new'
   get 'email_links/validate', as: :email_link
+  get 'chats/reported', as: :reported_chats
   post 'email_links/create', as: :magic_link
 
   resources :chats do
     resources :messages  
-    resources :orders
+    resources :orders do 
+      resources :extension_orders
+    end
     resources :homeworks
     resources :extensions
   end

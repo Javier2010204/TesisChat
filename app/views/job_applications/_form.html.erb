@@ -11,22 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+  <div class="form-group">
+    <%= form.label "seleccione al estudiante" %>
+    <%= form.collection_select :user_id, @students, :id, :name, {selected: @job_application.user_id, include_blank: false, :prompt=>"Seleccione el estudiante"},class:'form-control'%>
   </div>
 
-  <div class="field">
-    <%= form.label :professional_id %>
-    <%= form.text_field :professional_id %>
+  <div class="form-group">
+    <%= form.label 'Seleccione al profesional' %>
+    <%= form.collection_select :professional_id, @professionals, :id, :name, {selected: @job_application.professional_id, include_blank: false, :prompt=>"Seleccione a un profesional para el trabajo"},class:'form-control'%>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
+  <div class="form-group">
+    <%= form.label 'Estado'%>
+    <% estados = ['pending', 'active', 'denied']%>
+    <%= form.select(:status, estados, {:prompt => 'Seleccione el estado de la orden de trabajo'}, class:'form-control')%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Guardar', class: 'btn btn-info'%>
   </div>
 <% end %>

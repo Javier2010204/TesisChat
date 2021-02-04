@@ -1,11 +1,18 @@
 class UsuariosController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_usuarios, except:[:new, :create, :index]
+    before_action :find_usuarios, except:[:new, :create, :index, :payment]
     before_action :set_careers
     
     def index
         @usuarios = User.all
+        @total = User.total
     end
+
+    def payment
+        @usuarios = User.where(rol:"professional").or(User.where(rol:"editor"))
+        @total = User.total
+    end
+    
 
     def edit
         

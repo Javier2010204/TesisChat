@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @homework_review.status %>
+</p>
+
+<p>
+  <strong>Editor:</strong>
+  <%= @homework_review.editor_id %>
+</p>
+
+<p>
+  <strong>Homework:</strong>
+  <%= @homework_review.homework_id %>
+</p>
+
+<%= link_to 'Edit', edit_homework_review_path(@homework_review) %> |
+<%= link_to 'Back', homework_reviews_path %>

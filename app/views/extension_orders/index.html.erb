@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Extension Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extension date</th>
+      <th>Order</th>
+      <th>User</th>
+      <th>Receiver</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extension_orders.each do |extension_order| %>
+      <tr>
+        <td><%= extension_order.extension_date %></td>
+        <td><%= extension_order.order_id %></td>
+        <td><%= extension_order.user_id %></td>
+        <td><%= extension_order.receiver_id %></td>
+        <td><%= link_to 'Show', extension_order %></td>
+        <td><%= link_to 'Edit', edit_extension_order_path(extension_order) %></td>
+        <td><%= link_to 'Destroy', extension_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

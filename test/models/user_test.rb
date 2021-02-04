@@ -15,7 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  mount                  :decimal(, )      default(0.0)
-#  service                :string
+#  type_service           :string
 #
 require 'test_helper'
 

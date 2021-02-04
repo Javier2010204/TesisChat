@@ -1,5 +1,23 @@
 <div class="container">
   <h3 class=" text-center mt-3">Chat</h3>
+  <div class="alert alert-warning">
+    <p class="active" style="font-size:12px;">
+      “Está terminantemente
+prohibido el intercambio de datos personales como nombre del cliente, número
+telefónico, correo electrónico y cualquier otro dato personal que ponga en
+riesgo la garantía de confidencialidad ofrecida por Utesis.com. En caso de
+violentarse esta disposición, EspecializedProfessionalSupport.com tomará las medidas legales en contra
+del profesional y dará de baja el servicio para el cliente además de no
+responsabilizarse por problemas posteriores entre ambas partes”
+    </p>
+
+    <%= @chat.status%>
+    
+    <% if @chat.may_reported? %>
+      <%= link_to 'reportar chat', chat_path(@chat, status:"0"), method: :patch, class: "", style:"font-size:12px;"%>
+    <% end %>
+    
+  </div>
   <div class="messaging">
     <div class="inbox_msg">
       <div class="inbox_people">
@@ -51,6 +69,7 @@
                     <span class="time_date">
                     <%= message.user.name %>  
                     <%= message.created_at.strftime("%d-%m-%y")%>
+                    <%= message.status%>
                     </span> 
                   </div>
                 </div>
@@ -68,6 +87,7 @@
                         <span class="time_date">
                           <%= message.user.name %>  
                           <%= message.created_at.strftime("%d-%m-%y")%>
+                          <%= message.status%>
                         </span>
                       </div>
                     </div>
@@ -75,7 +95,8 @@
               <% end %>
             <% end %> 
           </div>
-          <div class="type_msg">
+          
+          <div class="type_msg" style="display: <%= 'none' if current_user.rol == 'admin'%>">
             <div class="input_msg_write">
               <%= form_for([@chat, @message]) do |form| %>
                 <%= form.text_field :body, class:'write_msg', placeholder: 'Escribe un mensaje'%>

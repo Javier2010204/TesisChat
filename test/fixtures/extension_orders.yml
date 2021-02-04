@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: extension_orders
+#
+#  id             :integer          not null, primary key
+#  extension_date :date
+#  order_id       :integer          not null
+#  user_id        :integer          not null
+#  receiver_id    :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+one:
+  extension_date: 2021-02-03
+  order: one
+  user: one
+  receiver: one
+
+two:
+  extension_date: 2021-02-03
+  order: two
+  user: two
+  receiver: two

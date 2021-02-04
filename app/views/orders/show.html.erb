@@ -2,7 +2,7 @@
   <div class="row card">
     <div class="col-xs-12 col-md-8">
       <div class="card-body">
-        <h5 class="card-title">Solicitud enviada por <%= @order.user.name%></h5>
+        <h5 class="card-title">Solicitud de orden de trabajo enviada por <%= @order.user.name%></h5>
         <p class="card-text">
           Descripcion:
           <%= @order.body %>
@@ -21,10 +21,6 @@
         <p class="card-subtitle">
           Faltan: <%= (@order.date - Date.today).to_i %> días para la entrega
         </p>
-
-        <div class="mt-2">
-          <%= link_to 'Solicitar prorroga', new_chat_extension_path() %>
-        </div>
       </div>
 
       <div>
@@ -35,58 +31,108 @@
       </div>
     </div>
   </div>
-  <% if current_user.rol == "student" %>
-    <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
-      <div class="col-xs-12 col-md-4">
-        <div>
-          <% @order.chat.homeworks.each do |homework| %>
-            <h5>Solicitud de aprobacion de trabajo enviada por: <%= homework.user.name%></h5>
-            <li class="">
-                <% homework.documents.each do |document|%>
-                    <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
-                <% end %>
-                <%= homework.status %>
-              <div class="row d-flex align-items-center justify-content-center">
-                
-                <% if homework.pending? && current_user.id == homework.receiver_id%>
-                  <div class="col-xs-6 col-md-6">
-                    <%= link_to 'Aceptar provisionalmente', chat_homework_path(@order.chat, homework.id, status:"1"), method: :patch, class: "btn btn-outline-success m-2" %>
-                  </div>
-                  <div class="col-xs-6 col-md-6">
-                    <%= link_to 'Aceptar definitivamente', chat_homework_path(@order.chat, homework.id, status:"0"), method: :patch, class: "btn btn-outline-info m-2"  %>
-                  </div>
-                <% end %>
-              </div>
-          </li>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  
-  <% if current_user.rol == "professional" %>
-    <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
-      <div class="col-xs-12 col-md-8">
-          <% if @order.active? && @order.chat.homeworks.count != 0 %>
+</div>
 
-            <h2 class="text-center">Solicitudes de Homeworks enviadas</h2>
-            <% @order.chat.homeworks.each do |homework| %>
-              <li class="card p-3 mt-2 d-flex justify-content-around">
-                <% homework.documents.each do |document|%>
-                    <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
-                <% end %>
-                <%= homework.status %>
-              </li>
+<div class="container">
+  <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
+    <div class="col-xs-12 col-md-8">
+      <h3>Trabajos enviados por el profesional</h3>
+      <% @order.chat.homeworks.each do |homework| %> 
+        <% if homework.status == "send" && current_user.rol == "student" %>
+          <h4>“Tu documento ha sido entregado por tu profesional asignado, y esta en fase de revisión</h4>
+        <% elsif homework.status == "send" && current_user.rol == "professional"%>
+          <div class="row card">
+            <div class="col-xs-12 col-md-8">
+              <%= homework.status %>
+              <% homework.documents.each do |document|%>
+                <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
+            <% homework.homework_reviews.each do |review|%>
+              <%= review.editor.name %>
+              <%= link_to 'ver mas', review %>
             <% end %>
-          <% elsif @order.active? %>
-            <h3>Ya tienes lista la entrega</h3>
-            <p>Puedes adjuntar el trabajo en el siguiente link</p>
-            <%= link_to "Agregar trabajo", new_chat_homework_path(@order.chat), class:'btn btn-success'%>
-          <% else %>
+          </div>
+        <% elsif homework.status == "send" && current_user.rol == "editor"%>
+          <div class="row card">
+            <div class="col-xs-12 col-md-8">
+              <%= homework.status %>
+              <% homework.documents.each do |document|%>
+                <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+              <% end %>
+              <%= link_to 'Aceptar', chat_homework_path(homework.chat, homework.id, status:"3"), method: :patch, class: "btn btn-success m-2" %>
+              <%= link_to 'Rechazar', chat_homework_path(homework.chat, homework.id, status:"4"), method: :patch, class: "btn btn-danger m-2"  %>
+            </div>
+          </div>
         <% end %>
+        <% if homework.status == "pending" && current_user.rol == "student" %>
+          <p>Los documentos han sido enviados por el profesional y validados por un editor</p>
+          <p>Revisalos y acepta el trabajo</p>
+          <%= homework.status %>
+          <% homework.documents.each do |document|%>
+            <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+          <% end %>
+          <%= link_to 'Aceptar provicionalmente', chat_homework_path(homework.chat, homework.id, status:"1"), method: :patch, class: "btn btn-success m-2" %>
+          <%= link_to 'Aceptar definitivamente', chat_homework_path(homework.chat, homework.id, status:"0"), method: :patch, class: "btn btn-info m-2"  %>
+        <% elsif homework.status == "pending" && current_user.rol == "professional"%>
+          <p>Los documentos han sido verificados por el editor y enviados al cliente para su aprobación</p>
+          <div class="row card">
+            <div class="col-xs-12 col-md-8">
+              <%= homework.status %>
+              <%= homework.user.email %>
+              <%= homework.receiver.email %>
+              <% homework.documents.each do |document|%>
+                <%= link_to document.filename, rails_blob_path(document, disposition: 'preview') %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% if homework.status == "denied" && current_user.rol == "professional" %>
+          <h1>Felicidades el trabajo fue aceptado por el estudiante</h1>
+          <p>Da click en el link para calificar al estudiante y poder continuar</p>
+          <%= link_to 'Calificar al estudiante', edit_user_path(homework.receiver) %>
+        <% end %>
+      <% end %>
+    </div>  
+  </div>
+</div>
+  
+<div class="container">
+  <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
+    <div class="col-xs-12 col-md-8">
+      <h3>Solicitudes de prorroga</h3>
+      <table>
+        <tr>
+          <th>Nueva fecha</th>
+          <th>Usuario que solicita</th>
+          <th>Usuario que recibe la solicitud</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      
+        <% @extension_orders.each do |extension_order| %>
+          <tr>
+            <td><%= extension_order.extension_date %></td>
+            <td><%= extension_order.user.name%></td>
+            <td><%= extension_order.receiver.name%></td>
+            <td><%= extension_order.status%></td>
+            <td>  
+              <% if current_user == extension_order.receiver && extension_order.pending? %>
+                <%= link_to 'Aceptar', chat_order_extension_order_path(@order.chat, @order,extension_order, status:"1"), method: :patch, class: "btn btn-success m-2" %>
+                <%= link_to 'Rechazar', chat_order_extension_order_path(@order.chat,@order, extension_order, status:"0"), method: :patch, class: "btn btn-danger m-2"  %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      
+      <% if @order.extension_orders.count == 0 %>
+        <%= link_to 'Solicitar Prorroga', new_chat_order_extension_order_path(@order.chat_id, @order) %>
+      <% end %>
 
-      </div>
     </div>
-  <% end %>
+  </div>
 </div>
 

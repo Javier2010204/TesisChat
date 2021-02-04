@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Extension date:</strong>
+  <%= @extension_order.extension_date %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @extension_order.order_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @extension_order.user_id %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= @extension_order.receiver_id %>
+</p>
+
+<%= link_to 'Edit', edit_extension_order_path(@extension_order) %> |
+<%= link_to 'Back', extension_orders_path %>

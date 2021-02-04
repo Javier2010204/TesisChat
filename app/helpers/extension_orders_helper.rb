@@ -1,0 +1,2 @@
+module ExtensionOrdersHelper
+end

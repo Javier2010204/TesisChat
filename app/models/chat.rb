@@ -24,7 +24,7 @@ class Chat < ApplicationRecord
     state :report
     
   	event :rejected do
-  		transitions from: [:active], to: [:denied]
+  		transitions from: [:active, :report], to: [:denied]
     end
     
     event :reported do

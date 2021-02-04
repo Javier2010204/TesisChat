@@ -32,6 +32,8 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.html { redirect_to @message.chat, notice: 'Mensaje enviado con exito' }
+        puts @message.documents.count
+        puts "==============================="
         format.json { render :show, status: :created, location: @message }
       else
         format.html { redirect_to @message.chat }

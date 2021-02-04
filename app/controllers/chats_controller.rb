@@ -10,6 +10,11 @@ class ChatsController < ApplicationController
     @admin_chats = Chat.all
   end
 
+  def reported
+    @reported_chats = Chat.where(status: "report")
+  end
+  
+
   # GET /chats/1
   # GET /chats/1.json
   def show
@@ -44,14 +49,15 @@ class ChatsController < ApplicationController
   # PATCH/PUT /chats/1
   # PATCH/PUT /chats/1.json
   def update
+    if params[:status] == "1"
+      @chat.accepted!
+    elsif params[:status] == "0"
+       @chat.reported!
+    end
+
     respond_to do |format|
-      if @chat.update(chat_params)
-        format.html { redirect_to @chat, notice: 'Chat was successfully updated.' }
-        format.json { render :show, status: :ok, location: @chat }
-      else
-        format.html { render :edit }
-        format.json { render json: @chat.errors, status: :unprocessable_entity }
-      end
+        format.html { redirect_to @chat, notice: 'Chat reportado con exito, sera revisado por los administradores' }
+        format.json { render :show, status: :ok, location: @job_application }
     end
   end
 

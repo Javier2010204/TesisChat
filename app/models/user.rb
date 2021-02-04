@@ -15,7 +15,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  mount                  :decimal(, )      default(0.0)
-#  service                :string
+#  type_service           :string
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -31,6 +31,18 @@ class User < ApplicationRecord
   has_many :orders
   has_many :homeworks
   has_many :extensions
+  has_many :homework_reviews
 
   has_one_attached :photo
+
+  def self.total
+    suma = 0
+    usuarios = User.where(rol:"professional").or(User.where(rol:"editor"))
+
+    usuarios.each do |usuario|
+      suma += usuario.mount
+    end
+    suma
+  end
+  
 end

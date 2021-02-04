@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_054624) do
+ActiveRecord::Schema.define(version: 2021_02_04_164209) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(version: 2021_02_02_054624) do
     t.index ["user_id"], name: "index_email_links_on_user_id"
   end
 
+  create_table "extension_orders", force: :cascade do |t|
+    t.date "extension_date"
+    t.integer "order_id", null: false
+    t.integer "user_id", null: false
+    t.integer "receiver_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_extension_orders_on_order_id"
+    t.index ["receiver_id"], name: "index_extension_orders_on_receiver_id"
+    t.index ["user_id"], name: "index_extension_orders_on_user_id"
+  end
+
   create_table "extensions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "chat_id", null: false
@@ -69,6 +82,16 @@ ActiveRecord::Schema.define(version: 2021_02_02_054624) do
     t.index ["chat_id"], name: "index_extensions_on_chat_id"
     t.index ["receiver_id"], name: "index_extensions_on_receiver_id"
     t.index ["user_id"], name: "index_extensions_on_user_id"
+  end
+
+  create_table "homework_reviews", force: :cascade do |t|
+    t.string "status"
+    t.integer "editor_id", null: false
+    t.integer "homework_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["editor_id"], name: "index_homework_reviews_on_editor_id"
+    t.index ["homework_id"], name: "index_homework_reviews_on_homework_id"
   end
 
   create_table "homeworks", force: :cascade do |t|
@@ -99,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_054624) do
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
@@ -113,6 +137,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_054624) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "number_page"
+    t.date "extension_date"
     t.index ["chat_id"], name: "index_orders_on_chat_id"
     t.index ["receiver_id"], name: "index_orders_on_receiver_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -148,8 +173,11 @@ ActiveRecord::Schema.define(version: 2021_02_02_054624) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "users"
   add_foreign_key "email_links", "users"
+  add_foreign_key "extension_orders", "orders"
+  add_foreign_key "extension_orders", "users"
   add_foreign_key "extensions", "chats"
   add_foreign_key "extensions", "users"
+  add_foreign_key "homework_reviews", "homeworks"
   add_foreign_key "homeworks", "chats"
   add_foreign_key "homeworks", "users"
   add_foreign_key "job_applications", "users"

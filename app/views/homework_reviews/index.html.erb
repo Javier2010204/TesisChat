@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Homework Reviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Editor</th>
+      <th>Homework</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @homework_reviews.each do |homework_review| %>
+      <tr>
+        <td><%= homework_review.status %></td>
+        <td><%= homework_review.editor_id %></td>
+        <td><%= homework_review.homework_id %></td>
+        <td><%= link_to 'Show', homework_review %></td>
+        <td><%= link_to 'Edit', edit_homework_review_path(homework_review) %></td>
+        <td><%= link_to 'Destroy', homework_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Homework Review', new_homework_review_path %>

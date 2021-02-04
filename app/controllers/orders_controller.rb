@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @extension = ExtensionOrder.new
+    @extension_orders = @order.extension_orders
   end
 
   # GET /orders/new

@@ -1,6 +1,8 @@
 class JobApplicationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_job_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_students
+  before_action :set_professionals
 
   # GET /job_applications
   # GET /job_applications.json
@@ -44,6 +46,7 @@ class JobApplicationsController < ApplicationController
 
     if params[:status] == "1"
       @job_application.accepted!
+      Chat.create(user: @job_application.user, professional: @job_application.professional)
    elsif params[:status] == "0"
        @job_application.rejected!
    end
@@ -74,4 +77,14 @@ class JobApplicationsController < ApplicationController
     def job_application_params
       params.require(:job_application).permit(:status)
     end
+
+    def set_students
+      @students = User.where(rol: "student")
+    end
+
+    def set_professionals
+      @professionals = User.where(rol: "professional")
+    end
+    
+    
 end
