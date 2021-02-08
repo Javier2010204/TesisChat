@@ -28,6 +28,8 @@ gem 'cancancan'
 gem 'poppler'
 gem 'letter_opener'
 
+gem 'gobject-introspection', '~> 3.4.3'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
