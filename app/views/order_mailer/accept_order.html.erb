@@ -1,0 +1,11 @@
+<h3>Se ha aceptado tu orden de entrega de trabajo en la plataforma de Especialized Professional Support</h3>
+<div>
+    <h2>Detalles</h2>
+    <p>Enviada por <%= @order.user.name %></p>
+    <p>Numero de paginas: <%= @order.number_page%></p>
+    <p>Fecha pactada: <%= @order.date.strftime("%d/%m/%y")%></p>
+    <p> Faltan <%=(@order.date - Date.today).to_i %> días para la entrega</p>
+</div>
+<p>
+    Puedes revisarla los detalles ingresando a la plataforma
+</p>

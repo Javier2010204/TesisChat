@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #
 class JobApplication < ApplicationRecord
+	after_create :send_mail
   include AASM
 
   belongs_to :user
@@ -28,4 +29,9 @@ class JobApplication < ApplicationRecord
   		transitions from: [:active, :pending], to: [:denied]
   	end
   end
+
+  def send_mail
+	  JobApplicationMailer.new_job_application_mail(self).deliver_now
+  end
+  
 end

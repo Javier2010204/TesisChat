@@ -47,6 +47,7 @@ class JobApplicationsController < ApplicationController
     if params[:status] == "1"
       @job_application.accepted!
       Chat.create(user: @job_application.user, professional: @job_application.professional)
+      JobApplicationMailer.accepted_client(@job_application).deliver_now
    elsif params[:status] == "0"
        @job_application.rejected!
    end

@@ -1,4 +1,10 @@
 <h3>Se ha creado una nueva orden de entrega de trabajo en la plataforma de Especialized Professional Support</h3>
+<div>
+    <h2>Detalles</h2>
+    <p>Enviada por <%= @order.user.name %></p>
+    <p>Numero de paginas: <%= @order.number_page%></p>
+    <p>Fecha pactada: <%= @order.date.strftime("%d/%m/%y")%></p>
+</div>
 <p>
-    Puedes revisarla ingresando a tu cuenta
+    Puedes revisarla y responder a la orden ingresando a tu cuenta
 </p>

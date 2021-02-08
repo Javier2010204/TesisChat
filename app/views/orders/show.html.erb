@@ -15,7 +15,7 @@
         </p>
 
         <p class="card-subtitle">
-          Fecha de entrega: <%= @order.date%>
+          Fecha de entrega: <%= @order.date.strftime("%d/%m/%y")%>
         </p>
 
         <p class="card-subtitle">
@@ -28,6 +28,9 @@
           <%= link_to 'Aceptar', chat_order_path(@order.chat, @order.id, status:"1"), method: :patch, class: "btn btn-success m-2" %>
           <%= link_to 'Rechazar', chat_order_path(@order.chat, @order.id, status:"0"), method: :patch, class: "btn btn-danger m-2"  %>
         <% end %>
+        <% if @order.active? && current_user.id == @order.receiver_id%>
+          <p>Estimamos que tu documento estará listo en el lapso de <%= (@order.date - Date.today).to_i %> días</p>
+        <% end %>
       </div>
     </div>
   </div>
@@ -37,6 +40,9 @@
   <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
     <div class="col-xs-12 col-md-8">
       <h3>Trabajos enviados por el profesional</h3>
+       <% if @order.chat.homeworks.count == 0 && current_user.rol == "professional"  %>
+          <%= link_to 'Subir trabajo', new_chat_homework_path %>
+        <% end %>
       <% @order.chat.homeworks.each do |homework| %> 
         <% if homework.status == "send" && current_user.rol == "student" %>
           <h4>“Tu documento ha sido entregado por tu profesional asignado, y esta en fase de revisión</h4>
@@ -94,6 +100,7 @@
           <p>Da click en el link para calificar al estudiante y poder continuar</p>
           <%= link_to 'Calificar al estudiante', edit_user_path(homework.receiver) %>
         <% end %>
+        
       <% end %>
     </div>  
   </div>

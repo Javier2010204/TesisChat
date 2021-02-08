@@ -20,6 +20,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include AASM
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -34,6 +35,19 @@ class User < ApplicationRecord
   has_many :homework_reviews
 
   has_one_attached :photo
+
+  aasm column: "status" do
+  	state :active, initial: true
+  	state :blocked
+
+  	event :accepted do
+  		transitions from: [:blocked], to: [:active]
+  	end	
+
+  	event :rejected do
+  		transitions from: [:active], to: [:blocked]
+    end
+  end
 
   def self.total
     suma = 0

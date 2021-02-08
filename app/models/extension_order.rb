@@ -11,6 +11,7 @@
 #  updated_at     :datetime         not null
 #
 class ExtensionOrder < ApplicationRecord
+	after_create :send_mail
   include AASM
 
   belongs_to :order
@@ -29,6 +30,10 @@ class ExtensionOrder < ApplicationRecord
   	event :rejected do
   		transitions from: [:pending], to: [:denied]
 	end
+  end
+
+  def send_mail
+	  ExtensionOrderMailer.created_extension_order(self).deliver_now
   end
   
 end

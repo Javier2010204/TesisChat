@@ -45,6 +45,9 @@
             <% end %>
             
         <% elsif current_user.rol == 'professional' || current_user.rol == 'editor' %>
+            <div class="alert alert-info">
+                    <p>enviar los datos de su cuenta bancaria: nombre del bco,nombre de la cuenta, tipo de cuenta y moneda al correo example@especialized.com</p>
+            </div>
             <div class="row d-flex justify-content-center p-4 w-100 card">
                 <div class="col-xs-12">
                     <h5>Solicitudes de trabajo pendientes</h5>

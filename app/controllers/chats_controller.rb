@@ -5,8 +5,8 @@ class ChatsController < ApplicationController
   # GET /chats
   # GET /chats.json
   def index
-    @chats = Chat.where(user_id: current_user.id)
-    @professional_chats = Chat.where(professional_id: current_user.id)
+    @chats = Chat.where(user_id: current_user.id).active
+    @professional_chats = Chat.where(professional_id: current_user.id).active
     @admin_chats = Chat.all
   end
 

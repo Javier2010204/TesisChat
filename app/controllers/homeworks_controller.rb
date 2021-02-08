@@ -54,11 +54,15 @@ class HomeworksController < ApplicationController
       if @homework.receiver.type_service == "completo"
         carrera = @homework.receiver.career_id
         profesionales = User.where(rol: "editor").where(career_id: carrera)
-        random = User.where(rol: "editor").where(career_id: carrera).order(Arel.sql('RANDOM()')).first
+        random = User.where(rol: "editor").order(Arel.sql('RANDOM()')).first
         JobApplication.create(user:@homework.receiver,professional: random, status:"pending")
+        respond_to do |format|    
+          format.html { redirect_to edit_user_path(@homework.user), notice: 'Homework was successfully updated.'}
+        end
+      else
         respond_to do |format|
           format.html { redirect_to edit_user_path(@homework.user), notice: 'Homework was successfully updated.'}
-      end
+        end
       end
       
     elsif params[:status] == "3"

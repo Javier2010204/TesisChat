@@ -52,6 +52,7 @@ class ExtensionOrdersController < ApplicationController
     if params[:status] == "1"
       @order.update_order_date(@extension_order.extension_date)
       @extension_order.accepted!
+      ExtensionOrderMailer.accepted_extension_order(@extension_order).deliver_now
    elsif params[:status] == "0"
       if @extension_order.receiver.rol == "student"
         carrera = @extension_order.receiver.career_id

@@ -54,6 +54,7 @@ class OrdersController < ApplicationController
 
     if params[:status] == "1"
       @order.accepted!
+      OrderMailer.accept_order(@order).deliver_now
    elsif params[:status] == "0"
        @order.rejected!
    end

@@ -12,15 +12,15 @@
   <% end %>
 
   <div>
-    <%= @order.date%>
+    Fecha actual de la orden: <%= @order.date.strftime("%d/%m/%y")%>
   </div>
 
-  <div class="field">
-    <%= form.label :extension_date %>
-    <%= form.date_select :extension_date %>
+  <div class="form-group">
+    <%= form.label 'Ingrese la fecha de prorroga' %>
+    <%= form.date_select :extension_date, class:'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Solicitar prorroga', class:'btn btn-info' %>
   </div>
 <% end %>
