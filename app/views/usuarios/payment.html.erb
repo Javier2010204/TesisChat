@@ -23,7 +23,10 @@
                             <td><%= usuario.career.name%></td>
                             <td><%= usuario.rol%></td>
                             <td><%= usuario.mount%></td>
-                            <td><%= link_to 'Ver usuario', usuario%></td>
+                            <td>
+                                <%= link_to 'Ver usuario', usuario%>
+                                <%= link_to 'Editar datos de pago', edit_user_path(usuario)%>
+                            </td>
                         </tr>
                     <% end %>
                         <tr class="s">

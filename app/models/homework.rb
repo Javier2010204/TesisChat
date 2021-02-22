@@ -16,7 +16,7 @@ class Homework < ApplicationRecord
   	belongs_to :chat
   	belongs_to :user
   	belongs_to :receiver, class_name: "User"
-  	has_many :homework_reviews
+  	has_many :homework_reviews, dependent: :destroy
 
   has_many_attached :documents
   attr_accessor :my_documents
@@ -44,7 +44,7 @@ class Homework < ApplicationRecord
 
   def create_review
 	carrera = self.user.career_id
-    random = User.where(rol: "editor").where(career_id: carrera).order(Arel.sql('RANDOM()')).first
+    random = User.where(rol: "editor").order(Arel.sql('RANDOM()')).first
     HomeworkReview.create(editor: random, homework: self)
   end
   

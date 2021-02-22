@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :extensions
   end
   resources :job_applications
+  get 'job_applications/new_editor_job', as: :new_editor_job
   resources :progresses
   devise_for :users
   resources :usuarios, as: :users

@@ -4,6 +4,11 @@ class JobApplicationsController < ApplicationController
   before_action :set_students
   before_action :set_professionals
 
+  def new_editor_job
+    
+  end
+  
+
   # GET /job_applications
   # GET /job_applications.json
   def index
@@ -19,6 +24,8 @@ class JobApplicationsController < ApplicationController
   def new
     @job_application = JobApplication.new
   end
+  
+  
 
   # GET /job_applications/1/edit
   def edit
@@ -76,7 +83,7 @@ class JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.require(:job_application).permit(:status)
+      params.require(:job_application).permit(:status, :user_id, :professional_id)
     end
 
     def set_students
@@ -86,6 +93,11 @@ class JobApplicationsController < ApplicationController
     def set_professionals
       @professionals = User.where(rol: "professional")
     end
+
+    def set_editors
+      @editors = User.where(rol: "editor")
+    end
+    
     
     
 end
