@@ -21,7 +21,7 @@ class Progress < ApplicationRecord
     carrera = self.user.career_id
     profesionales = User.where(rol: "professional").where(career_id: carrera)
     random = User.where(rol: "professional").where(career_id: carrera).order(Arel.sql('RANDOM()')).first
-    JobApplication.create(user:self.user,professional: random, stage:self.stage, expires_date: DateTime.now + 5.minutes)
+    JobApplication.create(user:self.user,professional: random, stage:self.stage, expires_date: DateTime.now + 24.hours)
   end
   
 end
