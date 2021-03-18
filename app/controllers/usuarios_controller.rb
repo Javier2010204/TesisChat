@@ -4,7 +4,7 @@ class UsuariosController < ApplicationController
     before_action :set_careers
     
     def index
-        @usuarios = User.all
+        @usuarios = User.all.order(:name)
         @total = User.total
     end
 
@@ -65,7 +65,7 @@ class UsuariosController < ApplicationController
         end
 
         def usuario_params
-            params.require(:user).permit(:name, :email, :password, :career_id, :rol, :photo, :points, :mount)
+            params.require(:user).permit(:name, :email, :password, :career_id, :rol, :photo, :points, :mount, :type_service)
         end
         
         

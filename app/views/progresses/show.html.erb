@@ -9,6 +9,12 @@
               <%= @progress.body%>
           </p>
         </div>
+        <div class="">
+          <b>Etapa:</b>
+          <p>
+              <%= @progress.stage%>
+          </p>
+        </div>
         <div>
           <h5>Guias y documentos</h5>
           <% @progress.documents.each do |document|%>

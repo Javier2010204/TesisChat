@@ -17,6 +17,12 @@
   </div>
 
   <div class="form-group">
+    <% etapas = ['tema o titulo','plan o anteproyecto','tesis o equivalente']%>
+    <%= form.label 'Etapa'%>
+    <%= form.select(:stage, etapas, {:prompt => 'Indica la etapa en la que corresponde este avance'}, class:'form-control')%>
+  </div>
+
+  <div class="form-group">
     <%= form.label 'Adjunta tus archivos y guias aqui' %>
     <%= form.file_field :my_documents, multiple: true, class:'form-control' %>
   </div>

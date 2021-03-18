@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_04_222819) do
+ActiveRecord::Schema.define(version: 2021_03_18_060556) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_02_04_222819) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
     t.index ["professional_id"], name: "index_chats_on_professional_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
@@ -112,6 +113,9 @@ ActiveRecord::Schema.define(version: 2021_02_04_222819) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stage", default: "tesis o equivalente"
+    t.datetime "expires_date"
+    t.integer "counter"
     t.index ["professional_id"], name: "index_job_applications_on_professional_id"
     t.index ["user_id"], name: "index_job_applications_on_user_id"
   end
@@ -148,6 +152,7 @@ ActiveRecord::Schema.define(version: 2021_02_04_222819) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stage", default: "tesis o equivalente"
     t.index ["user_id"], name: "index_progresses_on_user_id"
   end
 

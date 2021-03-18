@@ -10,7 +10,6 @@
 class Career < ApplicationRecord
     has_many :users
 
-
     def total
         users.sum(:mount)
     end

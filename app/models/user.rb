@@ -20,11 +20,15 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  after_create :send_mail
+
   include AASM
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   belongs_to :career
+
   has_many :progresses
   has_many :job_applications
   has_many :chats
@@ -32,7 +36,6 @@ class User < ApplicationRecord
   has_many :orders
   has_many :homeworks
   has_many :extensions
-  has_many :homework_reviews
 
   has_one_attached :photo
 
@@ -58,5 +61,10 @@ class User < ApplicationRecord
     end
     suma
   end
+
+  def send_mail
+    UserMailer.create_user_mail(self).deliver_now
+  end
+  
   
 end

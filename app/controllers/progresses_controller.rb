@@ -5,7 +5,7 @@ class ProgressesController < ApplicationController
   # GET /progresses
   # GET /progresses.json
   def index
-    @progresses = Progress.all
+    @progresses = current_user.progresses
   end
 
   # GET /progresses/1
@@ -70,7 +70,7 @@ class ProgressesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def progress_params
-      params.require(:progress).permit(:body, :my_documents)
+      params.require(:progress).permit(:body, :my_documents,:stage)
     end
     
 end

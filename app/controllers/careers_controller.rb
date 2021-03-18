@@ -24,6 +24,7 @@ class CareersController < ApplicationController
 
   # POST /careers
   # POST /careers.json
+
   def create
     @career = Career.new(career_params)
 
@@ -57,7 +58,7 @@ class CareersController < ApplicationController
   def destroy
     @career.destroy
     respond_to do |format|
-      format.html { redirect_to careers_url, notice: 'Career was successfully destroyed.' }
+      format.html { redirect_to careers_path, notice: 'Carrera eliminada con éxito' }
       format.json { head :no_content }
     end
   end
@@ -73,3 +74,5 @@ class CareersController < ApplicationController
       params.require(:career).permit(:name)
     end
 end
+
+# Java, Ruby, PhP, C#, NodeJs, C++, Phyton

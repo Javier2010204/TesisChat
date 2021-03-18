@@ -53,7 +53,7 @@ class HomeworksController < ApplicationController
       @homework.chat.rejected!
       if @homework.receiver.type_service == "completo"
         carrera = @homework.receiver.career_id
-        profesionales = User.where(rol: "editor").where(career_id: carrera)
+        profesionales = User.where(rol: "editor")
         random = User.where(rol: "editor").order(Arel.sql('RANDOM()')).first
         JobApplication.create(user:@homework.receiver,professional: random, status:"pending")
         respond_to do |format|    
@@ -67,6 +67,9 @@ class HomeworksController < ApplicationController
       
     elsif params[:status] == "3"
       @homework.validated!
+      respond_to do |format|
+        format.html { redirect_to @chat, notice: 'Homework was successfully updated.'}
+      end
     elsif params[:status] == "4"
     end
   end

@@ -8,11 +8,29 @@ class JobApplicationsController < ApplicationController
     
   end
   
-
   # GET /job_applications
   # GET /job_applications.json
   def index
-    @job_applications = JobApplication.all
+
+    if current_user.rol == "student"
+      @job_applications_student = JobApplication.where(user_id: current_user.id)
+      @job_applications_student.each do |application|
+        if application.pending? && DateTime.now > application.expires_date
+          application.rejected!
+          carrera = application.user.career_id
+          random = User.where(rol: "professional").where(career_id: carrera).order(Arel.sql('RANDOM()')).first
+          JobApplication.create(user:application.user,professional: random, stage:application.stage, expires_date: DateTime.now + 5.minutes)
+        elsif application.pending? && DateTime.now > application.expires_date 
+          puts "enviar correo"
+        else
+          puts "Esperando"  
+        end
+      end
+    else
+      @job_applications = JobApplication.all
+      @job_applications_professional = JobApplication.where(professional_id: current_user.id)
+    end
+
   end
 
   # GET /job_applications/1
@@ -87,11 +105,11 @@ class JobApplicationsController < ApplicationController
     end
 
     def set_students
-      @students = User.where(rol: "student")
+      @students = User.where(rol: "student").order(:name)
     end
 
     def set_professionals
-      @professionals = User.where(rol: "professional")
+      @professionals = User.where(rol: "professional").order(:name)
     end
 
     def set_editors

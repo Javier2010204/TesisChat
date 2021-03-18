@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'devise'
 gem 'annotate'
+gem 'i18n'
 gem 'aasm'
 gem 'cancancan'
 gem 'letter_opener'

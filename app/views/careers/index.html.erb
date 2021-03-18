@@ -16,7 +16,10 @@
             <tr>
               <th scope="row"><%= career.id%></th>
               <td><%= career.name%></td>
-              <td><%= link_to 'Editar', edit_career_path(career), class:'btn btn-outline-info'%></td>
+              <td>
+                <%= link_to 'Editar', edit_career_path(career), class:'btn btn-outline-info'%>
+                <%= link_to 'Eliminar', career_path(career), method: :delete, data:{confirm:"Si borra este elemento, se eliminaran todos los registros relacionados con el mismo(usuarios, ordenes). Esta seguro de eliminarlo?"}, class:'btn btn-outline-danger' %>
+              </td>
             </tr>
           <% end %>
         </tbody>

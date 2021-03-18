@@ -13,6 +13,8 @@
                       <%= image_tag chat.professional.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
                     <% end %>
                     <%= link_to chat.professional.name, chat %>
+                    <h4><%= chat.title %></h4>
+                    <%= link_to 'Agregar titulo al chat', edit_chat_path(chat), style:'float:right', class:'btn btn-outline-success' %>
                   <% elsif chat.professional_id == current_user.id %>
                       <% if chat.professional.photo.attached? %>
                         <%= image_tag chat.professional.photo, style:"height:50px;width:50px;border-radius:50%;border:1px solid black; margin-right:1em;" %>
@@ -24,7 +26,7 @@
             </div>
           <%end%>
         <% elsif current_user.rol == "professional"%>
-          <h2>Estos son los profesionales que se te asignaron, chatea con ellos</h2>
+          <h2>Estos son los clientes que se te asignaron. Chatea con alguno de ellos</h2>
           <% @professional_chats.each do |chat|%>
             <div class="row p-5 card mt-4">
               <div class="col-xs-10">

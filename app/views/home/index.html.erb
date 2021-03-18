@@ -4,8 +4,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-xs-12 col-sm-10 col-md-12">
                 <div class="alert alert-info">
-                    <h2>Bienvenido <%= current_user.name %> a la plataforma</h2>
-                    <p>Mensaje de bienvenida a la plataforma</p>
+                    <h2>Bienvenido <%= current_user.name %> a Specialized Professional Support</h2>
                 </div>
             </div>
         </div>
@@ -23,8 +22,8 @@
             <% elsif current_user.job_applications.count == 0 %>
                 <div class="row d-flex justify-content-center p-4 card mt-4">
                     <div class="col-xs-12">
-                        <h3>Hemos recibido tus avances</h3>
-                        <p>Espera a que se te asigne un profesional para darle seguimiento a tu caso</p>
+                        <h3>Hemos recibido tu manual o guía</h3>
+                        <p>En breve uno de nuestros profesionales te atenderá (este paso podría darse en un máximo de 1 día hábil)</p>
                     </div>
                 </div>
             <% elsif current_user.job_applications.pending.count != 0 %>
@@ -45,9 +44,6 @@
             <% end %>
             
         <% elsif current_user.rol == 'professional' || current_user.rol == 'editor' %>
-            <div class="alert alert-info">
-                    <p>enviar los datos de su cuenta bancaria: nombre del bco,nombre de la cuenta, tipo de cuenta y moneda al correo example@especialized.com</p>
-            </div>
             <div class="row d-flex justify-content-center p-4 w-100 card">
                 <div class="col-xs-12">
                     <h5>Solicitudes de trabajo pendientes</h5>

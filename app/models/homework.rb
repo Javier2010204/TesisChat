@@ -12,14 +12,16 @@
 #
 class Homework < ApplicationRecord
 	after_create :create_review
+
   	include AASM
+
   	belongs_to :chat
   	belongs_to :user
   	belongs_to :receiver, class_name: "User"
   	has_many :homework_reviews, dependent: :destroy
 
-  has_many_attached :documents
-  attr_accessor :my_documents
+	has_many_attached :documents
+	attr_accessor :my_documents
 
 
   aasm column: "status" do
@@ -36,7 +38,6 @@ class Homework < ApplicationRecord
 		transitions from: [:send], to: [:pending]
 	end
 	  	
-
   	event :rejected do
   		transitions from: [:pending], to: [:denied]
   	end

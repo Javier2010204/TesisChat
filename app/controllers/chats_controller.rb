@@ -56,8 +56,16 @@ class ChatsController < ApplicationController
     end
 
     respond_to do |format|
-        format.html { redirect_to @chat, notice: 'Chat reportado con exito, sera revisado por los administradores' }
-        format.json { render :show, status: :ok, location: @job_application }
+      if @chat.update(chat_params)
+        format.html { redirect_to @chat, notice: 'chat was successfully updated.' }
+        format.json { render :show, status: :ok, location: @chat }
+      else
+        format.html { render :edit }
+        format.json { render json: @chat.errors, status: :unprocessable_entity }
+      end
+
+      format.html { redirect_to @chat, notice: 'Chat reportado con exito, sera revisado por los administradores' }
+      format.json { render :show, status: :ok, location: @job_application }
     end
   end
 
@@ -79,6 +87,6 @@ class ChatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:user_id, :professional_id, :status)
+      params.require(:chat).permit(:user_id, :professional_id, :status, :title)
     end
 end

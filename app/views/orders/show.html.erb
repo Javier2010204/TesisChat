@@ -45,7 +45,7 @@
         <% end %>
       <% @order.chat.homeworks.each do |homework| %> 
         <% if homework.status == "send" && current_user.rol == "student" %>
-          <h4>“Tu documento ha sido entregado por tu profesional asignado, y esta en fase de revisión</h4>
+          <h4>Tu documento ha sido entregado por tu profesional asignado, y esta en fase de revisión</h4>
         <% elsif homework.status == "send" && current_user.rol == "professional"%>
           <div class="row card">
             <div class="col-xs-12 col-md-8">
@@ -109,7 +109,8 @@
 <div class="container">
   <div class="row card mt-5 p-4 d-flex justify-content-center align-items-center">
     <div class="col-xs-12 col-md-8">
-      <h3>Solicitudes de prorroga</h3>
+      <h3>Prórrogas</h3>
+      <p>En caso de ser necesario, solicita una prórroga al cliente quien deberá decidir si la acepta o no. Recuerda que puedes hacer esto un número limitado de veces</p>
       <table>
         <tr>
           <th>Nueva fecha</th>
