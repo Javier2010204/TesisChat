@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="row d-flex justify-content-center align-items-center card">
+    <div class="col-xs-12 col-md-8">
+      <h1>Pagos</h1>
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">#</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Rol</th></th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Total</th>
+          <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <% if current_user.rol == "admin" %>
+            <% @mounts.each do |mount| %>
+              <tr>
+                  <th scope="row"><%= mount.id %></th>
+                  <td><%= mount.user.name %></td>
+                  <td><%= mount.user.rol %></td>
+                  <td><%= mount.quantity %></td>
+                  <td><%= mount.date %></td>
+                  <td><%= mount.quantity %></td>
+                  <td><%= link_to 'Ver', mount %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          <tr class="s">
+            <td class="" colspan="5">Total</td>
+            <td class="" colspan="2"><%= Mount.total %></td>
+          </tr>
+          </tbody>
+      </table>
+      <%= link_to 'Agregar monto de pago', new_mount_path %>
+    </div>
+  </div>
+</div>

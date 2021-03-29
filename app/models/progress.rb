@@ -24,6 +24,7 @@ class Progress < ApplicationRecord
     JobApplication.create(user:self.user,professional: random, stage:self.stage, expires_date: DateTime.now + 24.hours)
   end
   
+  
 end
 =begin
   1- saber cual es la carrera del usuario

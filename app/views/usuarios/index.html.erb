@@ -21,9 +21,11 @@
                             <td><%= usuario.email %></td>
                             <td><%= usuario.career.name%></td>
                             <td><%= usuario.rol%></td>
-                            <td><%= link_to 'Ver usuario', usuario%>
-                                
-                            </td>
+                            <td><%= link_to 'Ver usuario', usuario%></td>
+                            <td><%= link_to 'Editar ', usuario%></td>
+                            <% if usuario.rol == "professional" || usuario.rol == "editor" %>
+                                <td><%= link_to 'Editar datos de pago', payments_path %></td>
+                            <% end %>
                         </tr>
                     <% end %>
                 </tbody>

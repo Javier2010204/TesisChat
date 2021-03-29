@@ -36,6 +36,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :homeworks
   has_many :extensions
+  has_many :mounts
 
   has_one_attached :photo
 
@@ -65,6 +66,7 @@ class User < ApplicationRecord
   def send_mail
     UserMailer.create_user_mail(self).deliver_now
   end
+  
   
   
 end

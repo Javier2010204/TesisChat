@@ -51,6 +51,7 @@ class HomeworksController < ApplicationController
     elsif params[:status] == "0"
       @homework.rejected!
       @homework.chat.rejected!
+      Mount.create(user: @homework.user, quantity: @homework.user.mount, date: Date.today)
       if @homework.receiver.type_service == "completo"
         carrera = @homework.receiver.career_id
         profesionales = User.where(rol: "editor")

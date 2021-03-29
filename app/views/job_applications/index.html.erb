@@ -8,6 +8,7 @@
           <th scope="col">#</th>
           <th scope="col">Estudiante</th>
           <th scope="col">Profesional</th>
+          <th scope="col">Rol</th>
           <th scope="col">Estado</th>
           <th scope="col">Etapa</th>
           <th scope="col">Fecha de expiración</th>
@@ -22,6 +23,7 @@
                   <th scope="row"><%= job_application.id %></th>
                   <td><%= job_application.user.name %></td>
                   <td><%= job_application.professional.name %></td>
+                  <td><%= job_application.professional.rol %></td>
                   <td><%= job_application.status %></td>
                   <td><%= job_application.stage %></td>
                   <td><%= job_application.expires_date %></td>
@@ -34,6 +36,7 @@
                   <th scope="row"><%= job_application.id %></th>
                   <td><%= job_application.user.name %></td>
                   <td><%= job_application.professional.name %></td>
+                  <td><%= job_application.professional.rol %></td>
                   <td><%= job_application.status %></td>
                   <td><%= job_application.stage %></td>
                   <td><%= job_application.expires_date %></td>
@@ -48,7 +51,7 @@
                   <td><%= job_application.professional.name %></td>
                   <td><%= job_application.status %></td>
                   <td><%= job_application.stage %></td>
-                  <td><%= job_application.expires_date.strftime("%d-%m-%y %H:%M") %></td>
+                  <td><%= job_application.expires_date %></td>
                   <td><%= link_to 'Ver', job_application %></td>
               </tr>
             <% end %>
@@ -62,7 +65,7 @@
               <%= link_to 'Crear orden de trabajo para profesional', new_job_application_path, class:'btn btn-info' %>
           </div>
            <div class="col-xs-12 col-md-6">
-              <%= link_to 'Crear orden de trabajo para editor', new_editor_job_path, class:'btn btn-success' %>
+              <%= link_to 'Crear orden de trabajo para editor', new_job_application_path(rol:"editor"), class:'btn btn-success' %>
           </div>
         </div>
       <% end %>

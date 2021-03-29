@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_060556) do
+ActiveRecord::Schema.define(version: 2021_03_25_053255) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,15 @@ ActiveRecord::Schema.define(version: 2021_03_18_060556) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "mounts", force: :cascade do |t|
+    t.decimal "quantity", precision: 8, scale: 2, default: "0.0"
+    t.date "date"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_mounts_on_user_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "receiver_id", null: false
@@ -189,6 +198,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_060556) do
   add_foreign_key "job_applications", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
+  add_foreign_key "mounts", "users"
   add_foreign_key "orders", "chats"
   add_foreign_key "orders", "users"
   add_foreign_key "progresses", "users"

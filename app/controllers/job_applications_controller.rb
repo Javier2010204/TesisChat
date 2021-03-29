@@ -1,12 +1,8 @@
 class JobApplicationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_job_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_job_application, except:[:index,:new,:create,:new_editor_job]
   before_action :set_students
   before_action :set_professionals
-
-  def new_editor_job
-    
-  end
   
   # GET /job_applications
   # GET /job_applications.json
@@ -40,7 +36,12 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications/new
   def new
-    @job_application = JobApplication.new
+    if params[:rol]
+      @professionals = User.where(rol: "editor").order(:name)
+      @job_application = JobApplication.new
+    else
+      @job_application = JobApplication.new
+    end
   end
   
   
@@ -53,6 +54,7 @@ class JobApplicationsController < ApplicationController
   # POST /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
+    @job_application.expires_date = DateTime.now + 24.hours
 
     respond_to do |format|
       if @job_application.save
@@ -101,7 +103,7 @@ class JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.require(:job_application).permit(:status, :user_id, :professional_id)
+      params.require(:job_application).permit(:status, :user_id, :professional_id, :stage)
     end
 
     def set_students

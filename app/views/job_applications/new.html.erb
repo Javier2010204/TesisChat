@@ -1,7 +1,13 @@
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center card mb-4">
         <div class="col-xs-12 col-md-8 mb-4">
-            <h1 style="font-size:30px" class="mt-4">Crear una nueva orden de trabajo para profesional</h1>
+            
+            <% if params[:rol] %>
+                <h1 style="font-size:30px" class="mt-4">Crear una nueva orden de trabajo para editor</h1>
+            <% else %>
+                <h1 style="font-size:30px" class="mt-4">Crear una nueva orden de trabajo para profesional</h1>
+            <% end %>
+            
             <%= render 'form', job_application: @job_application %>
         </div>
     </div>
