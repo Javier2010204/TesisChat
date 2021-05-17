@@ -18,13 +18,5 @@ module Teschat
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    config.log_level = ENV.fetch('LOG_LEVEL', 'INFO').downcase
-
-if ENV['RAILS_LOG_TO_STDOUT'].present?
-  logger           = ActiveSupport::Logger.new(STDOUT)
-  logger.level     = ActiveSupport::Logger.const_get(config.log_level.to_s.upcase)
-  config.logger    = ActiveSupport::TaggedLogging.new(logger)
-end
   end
 end
